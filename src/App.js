@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import app from "./firebase.init";
 import {
+  FacebookAuthProvider,
   getAuth,
   GithubAuthProvider,
   GoogleAuthProvider,
@@ -16,7 +17,10 @@ function App() {
   const [users, setUser] = useState({});
 
   const googleProvider = new GoogleAuthProvider();
+  const fbProvider = new FacebookAuthProvider();
+
   const githubProvider = new GithubAuthProvider();
+
 
   const handleClick = () => {
     signInWithPopup(auth, googleProvider)
@@ -31,6 +35,19 @@ function App() {
 
     console.log("working");
   };
+
+  const handleFbSign=()=>{
+     
+    signInWithPopup(auth,fbProvider)
+    .then(result=>{
+      const user=result.user;
+      console.log(user)
+    })
+    .catch(error=>{
+      console.error(error)
+    })
+
+  }
 
   const handleGitSign = () => {
     console.log("this is git hub");
@@ -63,6 +80,7 @@ function App() {
       ) : (
         <>
           <button onClick={handleClick}>Google Sign In </button>
+          <button onClick={handleFbSign}>Google Fb Sign In </button>
           <button onClick={handleGitSign}>Git Hub Sign In</button>
         </>
       )}
